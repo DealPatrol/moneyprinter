@@ -162,26 +162,20 @@ kill <PID>
 
 ### Using systemd (Linux)
 
-Create a systemd service file `/etc/systemd/system/moneyprinter-automation.service`:
+A systemd service template is included: `moneyprinter-automation.service`
 
-```ini
-[Unit]
-Description=MoneyPrinter Automation
-After=network.target
+1. Edit the service file and update:
+   - `YOUR_USERNAME` with your username
+   - `/path/to/moneyprinter` with the actual path
+   - `/path/to/your/python/bin` with your Python path
 
-[Service]
-Type=simple
-User=your_username
-WorkingDirectory=/path/to/moneyprinter
-ExecStart=/usr/bin/python3 /path/to/moneyprinter/automation.py --daemon
-Restart=on-failure
-RestartSec=10
+2. Copy the service file:
 
-[Install]
-WantedBy=multi-user.target
+```bash
+sudo cp moneyprinter-automation.service /etc/systemd/system/
 ```
 
-Enable and start the service:
+3. Enable and start the service:
 
 ```bash
 sudo systemctl enable moneyprinter-automation

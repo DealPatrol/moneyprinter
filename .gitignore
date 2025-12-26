@@ -21,3 +21,4 @@ venv/
 # Automation
 automation.log
 automation_config.yaml
+test_*.yaml

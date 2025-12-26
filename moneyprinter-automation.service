@@ -1,0 +1,21 @@
+[Unit]
+Description=MoneyPrinter Automation Service
+After=network.target
+
+[Service]
+Type=simple
+User=YOUR_USERNAME
+WorkingDirectory=/path/to/moneyprinter
+Environment="PATH=/path/to/your/python/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/usr/bin/python3 /path/to/moneyprinter/automation.py --daemon
+Restart=on-failure
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+# Optional: Limit resources
+# MemoryLimit=2G
+# CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target
