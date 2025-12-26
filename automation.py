@@ -15,6 +15,7 @@ import os
 import sys
 import time
 import yaml
+import random
 import logging
 import argparse
 import requests
@@ -80,7 +81,6 @@ class MoneyPrinterAutomation:
         selection_mode = self.config.get('topic_selection_mode', 'sequential')
         
         if selection_mode == 'random':
-            import random
             topic = random.choice(topics)
         else:  # sequential
             topic = topics[self.topic_index % len(topics)]

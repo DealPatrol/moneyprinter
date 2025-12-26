@@ -30,24 +30,29 @@ def test_topic_selection_sequential():
         'logging': {'enabled': False}
     }
     
-    with open('test_sequential_config.yaml', 'w') as f:
-        yaml.dump(config, f)
+    test_file = 'test_sequential_config.yaml'
     
-    automation = MoneyPrinterAutomation('test_sequential_config.yaml')
-    
-    # Test sequential selection
-    topic1 = automation.get_next_topic()
-    topic2 = automation.get_next_topic()
-    topic3 = automation.get_next_topic()
-    topic4 = automation.get_next_topic()  # Should wrap around
-    
-    assert topic1 == 'Topic 1', f"First topic should be 'Topic 1', got {topic1}"
-    assert topic2 == 'Topic 2', f"Second topic should be 'Topic 2', got {topic2}"
-    assert topic3 == 'Topic 3', f"Third topic should be 'Topic 3', got {topic3}"
-    assert topic4 == 'Topic 1', f"Fourth topic should wrap to 'Topic 1', got {topic4}"
-    
-    os.remove('test_sequential_config.yaml')
-    print("✓ Sequential topic selection works")
+    try:
+        with open(test_file, 'w') as f:
+            yaml.dump(config, f)
+        
+        automation = MoneyPrinterAutomation(test_file)
+        
+        # Test sequential selection
+        topic1 = automation.get_next_topic()
+        topic2 = automation.get_next_topic()
+        topic3 = automation.get_next_topic()
+        topic4 = automation.get_next_topic()  # Should wrap around
+        
+        assert topic1 == 'Topic 1', f"First topic should be 'Topic 1', got {topic1}"
+        assert topic2 == 'Topic 2', f"Second topic should be 'Topic 2', got {topic2}"
+        assert topic3 == 'Topic 3', f"Third topic should be 'Topic 3', got {topic3}"
+        assert topic4 == 'Topic 1', f"Fourth topic should wrap to 'Topic 1', got {topic4}"
+        
+        print("✓ Sequential topic selection works")
+    finally:
+        if os.path.exists(test_file):
+            os.remove(test_file)
 
 def test_topic_selection_random():
     """Test random topic selection."""
@@ -60,20 +65,25 @@ def test_topic_selection_random():
         'logging': {'enabled': False}
     }
     
-    with open('test_random_config.yaml', 'w') as f:
-        yaml.dump(config, f)
+    test_file = 'test_random_config.yaml'
     
-    automation = MoneyPrinterAutomation('test_random_config.yaml')
-    
-    # Get 20 topics and verify randomness
-    topics = [automation.get_next_topic() for _ in range(20)]
-    unique_topics = set(topics)
-    
-    assert len(unique_topics) >= 2, "Random selection should produce variety"
-    assert all(t in config['video_topics'] for t in unique_topics), "All topics should be from config"
-    
-    os.remove('test_random_config.yaml')
-    print("✓ Random topic selection works")
+    try:
+        with open(test_file, 'w') as f:
+            yaml.dump(config, f)
+        
+        automation = MoneyPrinterAutomation(test_file)
+        
+        # Get 20 topics and verify randomness
+        topics = [automation.get_next_topic() for _ in range(20)]
+        unique_topics = set(topics)
+        
+        assert len(unique_topics) >= 2, "Random selection should produce variety"
+        assert all(t in config['video_topics'] for t in unique_topics), "All topics should be from config"
+        
+        print("✓ Random topic selection works")
+    finally:
+        if os.path.exists(test_file):
+            os.remove(test_file)
 
 def test_empty_topics():
     """Test handling of empty topic list."""
@@ -85,16 +95,21 @@ def test_empty_topics():
         'logging': {'enabled': False}
     }
     
-    with open('test_empty_topics.yaml', 'w') as f:
-        yaml.dump(config, f)
+    test_file = 'test_empty_topics.yaml'
     
-    automation = MoneyPrinterAutomation('test_empty_topics.yaml')
-    topic = automation.get_next_topic()
-    
-    assert topic is None, "Empty topic list should return None"
-    
-    os.remove('test_empty_topics.yaml')
-    print("✓ Empty topic list handled correctly")
+    try:
+        with open(test_file, 'w') as f:
+            yaml.dump(config, f)
+        
+        automation = MoneyPrinterAutomation(test_file)
+        topic = automation.get_next_topic()
+        
+        assert topic is None, "Empty topic list should return None"
+        
+        print("✓ Empty topic list handled correctly")
+    finally:
+        if os.path.exists(test_file):
+            os.remove(test_file)
 
 def test_video_settings():
     """Test video settings extraction."""
@@ -116,20 +131,25 @@ def test_video_settings():
         'logging': {'enabled': False}
     }
     
-    with open('test_settings_config.yaml', 'w') as f:
-        yaml.dump(config, f)
+    test_file = 'test_settings_config.yaml'
     
-    automation = MoneyPrinterAutomation('test_settings_config.yaml')
-    settings = automation.config.get('video_settings', {})
-    
-    assert settings.get('ai_model') == 'gpt4', "AI model should be gpt4"
-    assert settings.get('voice') == 'en_us_002', "Voice should be en_us_002"
-    assert settings.get('paragraph_number') == 3, "Paragraph number should be 3"
-    assert settings.get('threads') == 4, "Threads should be 4"
-    assert settings.get('use_music') == True, "Use music should be True"
-    
-    os.remove('test_settings_config.yaml')
-    print("✓ Video settings extracted correctly")
+    try:
+        with open(test_file, 'w') as f:
+            yaml.dump(config, f)
+        
+        automation = MoneyPrinterAutomation(test_file)
+        settings = automation.config.get('video_settings', {})
+        
+        assert settings.get('ai_model') == 'gpt4', "AI model should be gpt4"
+        assert settings.get('voice') == 'en_us_002', "Voice should be en_us_002"
+        assert settings.get('paragraph_number') == 3, "Paragraph number should be 3"
+        assert settings.get('threads') == 4, "Threads should be 4"
+        assert settings.get('use_music') == True, "Use music should be True"
+        
+        print("✓ Video settings extracted correctly")
+    finally:
+        if os.path.exists(test_file):
+            os.remove(test_file)
 
 def main():
     """Run all tests."""
