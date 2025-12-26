@@ -1,0 +1,54 @@
+# Example Automation Configuration
+# This is a simple example to get started with MoneyPrinter automation
+
+# Enable automation
+enabled: true
+
+# Generate a new video every 24 hours
+generation_interval_hours: 24
+
+# Video generation settings
+video_settings:
+  # Use the free AI model
+  ai_model: "g4f"
+  
+  # Use a clear, neutral voice
+  voice: "en_us_001"
+  
+  # Generate short scripts (1 paragraph)
+  paragraph_number: 1
+  
+  # Use 2 threads for faster processing
+  threads: 2
+  
+  # Place subtitles at the bottom center
+  subtitles_position: "center,bottom"
+  
+  # Use yellow subtitles (default)
+  subtitles_color: "#FFFF00"
+  
+  # Don't use background music
+  use_music: false
+  
+  # Don't upload to YouTube automatically (set to true once you've set up OAuth)
+  automate_youtube_upload: false
+  
+  # Use default prompt
+  custom_prompt: ""
+
+# Example video topics - add your own!
+video_topics:
+  - "Fascinating facts about the solar system"
+  - "How artificial intelligence is changing our world"
+  - "Incredible abilities of the human brain"
+  - "Ancient civilizations and their mysteries"
+  - "The future of renewable energy"
+
+# Use topics in order
+topic_selection_mode: "sequential"
+
+# Logging configuration
+logging:
+  enabled: true
+  log_file: "automation.log"
+  log_level: "INFO"

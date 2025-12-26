@@ -15,6 +15,29 @@ Automate the creation of YouTube Shorts, simply by providing a video topic to ta
 
 Check out the instructions for the local version [here](Local.md).
 
+## Automation 🤖
+
+**NEW!** MoneyPrinter now supports fully automated video generation and uploading! 
+
+Run MoneyPrinter on a schedule to automatically generate and upload YouTube Shorts videos without manual intervention. Perfect for maintaining a consistent upload schedule.
+
+**Quick Start:**
+```bash
+# Install PyYAML
+pip install PyYAML==6.0.1
+
+# Configure automation (edit automation_config.yaml)
+cp automation_config.example.yaml automation_config.yaml
+
+# Run once
+python automation.py
+
+# Run continuously (daemon mode)
+python automation.py --daemon
+```
+
+See the [Automation Guide](AUTOMATION.md) for detailed setup instructions, configuration options, and best practices.
+
 ## FAQ 🤔
 
 ### How do I get the TikTok session ID?

@@ -17,3 +17,8 @@ main.py-oauth2.json
 Backend/output*
 Songs/
 venv/
+
+# Automation
+automation.log
+automation_config.yaml
+test_*.yaml
